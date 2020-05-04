@@ -25,3 +25,6 @@ wd.gypi
 /src/webdriver/webdriver_version.cc
 /build-*
 .DS_Store
+.python-version
+.qmake.stash
+Makefile.*

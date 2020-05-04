@@ -17,7 +17,6 @@
 #if defined(__OBJC__)
 #import <Foundation/Foundation.h>
 #else  // __OBJC__
-#include <CoreFoundation/CoreFoundation.h>
 class NSBundle;
 class NSString;
 #endif  // __OBJC__
@@ -31,6 +30,7 @@ class NSString;
 class FilePath;
 
 // Adapted from NSPathUtilities.h and NSObjCRuntime.h.
+#if !defined(__OBJC__)
 #if __LP64__ || NS_BUILD_32_LIKE_64
 typedef unsigned long NSSearchPathDirectory;
 typedef unsigned long NSSearchPathDomainMask;
@@ -38,9 +38,7 @@ typedef unsigned long NSSearchPathDomainMask;
 typedef unsigned int NSSearchPathDirectory;
 typedef unsigned int NSSearchPathDomainMask;
 #endif
-
-typedef struct OpaqueSecTrustRef* SecACLRef;
-typedef struct OpaqueSecTrustedApplicationRef* SecTrustedApplicationRef;
+#endif
 
 namespace base {
 namespace mac {

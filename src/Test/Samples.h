@@ -47,15 +47,6 @@
 extern std::string testDataFolder;
 #endif // WD_ENABLE_PLAYER
 
-#if (WD_ENABLE_WEB_VIEW == 1)
-#include "GraphicsWebViewTest.h"
-#include "WindowWithEmbeddedViewTest.h"
-#include "WidgetAndWebViewTest.h"
-#if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
-#include "WindowWithSeparatedDeclarativeAndWebViewsTest.h"
-#endif //QT_VERSION
-#endif //WD_ENABLE_WEB_VIEW
-
 int wd_samples_setup(webdriver::ViewCreator* widgetCreator,
     webdriver::ViewCreator* webCreator,
     webdriver::ViewCreator* qmlCreator,

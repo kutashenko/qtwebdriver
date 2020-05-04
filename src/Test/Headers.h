@@ -25,15 +25,9 @@
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     #include <QtConcurrent/QtConcurrentRun>
-    #if (WD_ENABLE_WEB_VIEW == 1)
-        #include <QtWebKitWidgets/QWebView>
-    #endif
     #include <QtWidgets/QApplication>
 #else
     #include <QtGui/QApplication>
-    #if (WD_ENABLE_WEB_VIEW == 1)
-        #include <QtWebKit/QtWebKit>
-    #endif
 #endif
 
 #include <iostream>
@@ -62,21 +56,7 @@
     #include "extension_qt/qml_view_creator.h"
     #include "extension_qt/qml_view_executor.h"
     #include "extension_qt/qml_view_enumerator.h"
-#if (WD_ENABLE_WEB_VIEW == 1)
-    #include "extension_qt/qdeclarativewebview.h"
-    #include "extension_qt/qml_web_view_enumerator.h"
-    #include "extension_qt/qml_web_view_executor.h"
-#endif //WD_ENABLE_WEB_VIEW
 #endif //QT_VERSION
-
-#if (WD_ENABLE_WEB_VIEW == 1)
-#include "extension_qt/web_view_creator.h"
-#include "extension_qt/web_view_executor.h"
-#include "extension_qt/web_view_enumerator.h"
-#include "extension_qt/qwebviewext.h"
-#include "extension_qt/graphics_web_view_executor.h"
-#include "extension_qt/graphics_web_view_enumerator.h"
-#endif //WD_ENABLE_WEB_VIEW
 
 #include "extension_qt/q_view_runner.h"
 #include "extension_qt/q_session_lifecycle_actions.h"
@@ -116,21 +96,6 @@ int wd_setup(int argc, char *argv[])
        See https://github.com/cisco-open-source/qtwebdriver/wiki/Hybridity-And-View-Management
     */
     widgetCreator->RegisterViewClass<QWidget>("QWidget");
-    
-#if (WD_ENABLE_WEB_VIEW == 1)
-    /* Configure web views */
-    webCreator = new webdriver::QWebViewCreator();
-    webCreator->RegisterViewClass<QWebViewExt>("QWebViewExt");
-    webdriver::ViewFactory::GetInstance()->AddViewCreator(webCreator);
-  
-    /* Configure WebView support */
-    webdriver::ViewEnumerator::AddViewEnumeratorImpl(new webdriver::WebViewEnumeratorImpl());
-    webdriver::ViewCmdExecutorFactory::GetInstance()->AddViewCmdExecutorCreator(new webdriver::QWebViewCmdExecutorCreator());
-
-    /* Configure GraphicsWebView support */
-    webdriver::ViewEnumerator::AddViewEnumeratorImpl(new webdriver::GraphicsWebViewEnumeratorImpl());
-    webdriver::ViewCmdExecutorFactory::GetInstance()->AddViewCmdExecutorCreator(new webdriver::GraphicsWebViewCmdExecutorCreator());  
-#endif // WD_ENABLE_WEB_VIEW
 
 #ifndef QT_NO_QML
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))

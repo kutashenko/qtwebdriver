@@ -6,7 +6,7 @@ gyp --depth . -G output_dir=. -D platform=desktop -D mode=release --generator-ou
 if [ "$1" == "-all" ]
 then
 
-xcodebuild -project ./out/wd.xcodeproj -alltargets #clean build
+xcodebuild -project ./out/wd.xcodeproj -UseModernBuildSystem=NO -alltargets clean build
 
 fi
 
