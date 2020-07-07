@@ -2,7 +2,6 @@ HEADERS += \
  $$INC_DIR/extension_qt/q_session_lifecycle_actions.h \
  $$INC_DIR/extension_qt/q_view_executor.h \
  $$INC_DIR/extension_qt/q_view_runner.h \
- $$INC_DIR/extension_qt/touch_device_manager.h \
  $$INC_DIR/extension_qt/uinput_event_dispatcher.h \
  $$INC_DIR/extension_qt/uinput_manager.h \
  $$INC_DIR/extension_qt/vnc_event_dispatcher.h \
