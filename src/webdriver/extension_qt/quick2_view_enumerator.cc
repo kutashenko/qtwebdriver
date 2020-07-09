@@ -38,7 +38,8 @@ void Quick2ViewEnumeratorImpl::EnumerateViews(Session* session, std::set<ViewId>
 
     foreach(QWindow* pWindow, QGuiApplication::allWindows())
     {
-        if (!pWindow->isVisible()) continue;
+        // Make possible to find QQuickWidget, so the line below is commented
+        // if (!pWindow->isVisible()) continue;
 
         QQuickWindow* pView = qobject_cast<QQuickWindow*>(pWindow);
         if (pView != NULL) {
