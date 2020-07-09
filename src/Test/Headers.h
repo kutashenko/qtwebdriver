@@ -2,7 +2,7 @@
 **
 ** Copyright © 1992-2014 Cisco and/or its affiliates. All rights reserved.
 ** All rights reserved.
-** 
+**
 ** $CISCO_BEGIN_LICENSE:LGPL$
 **
 ** GNU Lesser General Public License Usage
@@ -75,7 +75,7 @@
 #include "Samples.h"
 #endif
 
-int wd_setup(int argc, char *argv[])
+int wd_setup(int argc, char *argv[], bool useWidgets)
 {
 #if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("utf8"));
@@ -124,10 +124,12 @@ int wd_setup(int argc, char *argv[])
 #endif
 #endif //QT_NO_QML
     /* Add widget creator last so that it deos not conflict with webview creator (QWebView is a subclass of QWidget)*/
-    webdriver::ViewFactory::GetInstance()->AddViewCreator(widgetCreator);
-    webdriver::ViewEnumerator::AddViewEnumeratorImpl(new webdriver::WidgetViewEnumeratorImpl());
-    webdriver::ViewCmdExecutorFactory::GetInstance()->AddViewCmdExecutorCreator(new webdriver::QWidgetViewCmdExecutorCreator());
-    
+    if (useWidgets) {
+        webdriver::ViewFactory::GetInstance()->AddViewCreator(widgetCreator);
+        webdriver::ViewEnumerator::AddViewEnumeratorImpl(new webdriver::WidgetViewEnumeratorImpl());
+        webdriver::ViewCmdExecutorFactory::GetInstance()->AddViewCmdExecutorCreator(new webdriver::QWidgetViewCmdExecutorCreator());
+    }
+
     CommandLine cmd_line(CommandLine::NO_PROGRAM);
 #if defined(OS_WIN)
     for (int var = 0; var < argc; ++var) {
