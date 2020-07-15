@@ -24,6 +24,9 @@ macx {
 
 linux* {
     DEFINES += __STDC_FORMAT_MACROS OS_POSIX
+    ADDITIONAL_FLAGS += -Wno-error=unused-local-typedefs
+    QMAKE_CFLAGS += $$ADDITIONAL_FLAGS
+    QMAKE_CXXFLAGS += $$ADDITIONAL_FLAGS
 }
 
 win* {
