@@ -30,7 +30,14 @@
 
 #include <QtCore/QDebug>
 #include <QtGui/QTouchEvent>
+
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+#include <QPointingDevice>
+#define QTouchDevice QPointingDevice
+#else
 #include <QtGui/QTouchDevice>
+#endif
+
 #include <QtGui/QWindow>
 
 namespace webdriver {

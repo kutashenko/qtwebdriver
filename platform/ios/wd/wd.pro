@@ -1,5 +1,9 @@
 QT += core gui network widgets qml xml multimedia multimediawidgets quick
 
+equals(QT_MAJOR_VERSION, 6){
+   QT += core5compat
+}
+
 TEMPLATE = app
 QTPLUGIN += qtaudio_coreaudio qtmedia_audioengine qavfmediaplayer qavfcamera
 CONFIG += mobility

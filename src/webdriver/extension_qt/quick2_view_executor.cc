@@ -185,7 +185,7 @@ void Quick2ViewCmdExecutor::SendKeys(const ElementId& element, const string16& k
 
     std::vector<QKeyEvent>::iterator it = key_events.begin();
     while (it != key_events.end()) {
-        view->sendEvent(pItem, &(*it));
+//        view->sendEvent(pItem, &(*it));
         ++it;
     }
 }
@@ -221,7 +221,7 @@ void Quick2ViewCmdExecutor::SendKeys(const string16& keys, Error** error) {
 
         if (!consumed) {
             if (NULL != pFocusItem) {
-                view->sendEvent(pFocusItem, &(*it));
+//                view->sendEvent(pFocusItem, &(*it));
             } else {
                 QGuiApplication::sendEvent(view, &(*it));
             }
@@ -345,32 +345,32 @@ void Quick2ViewCmdExecutor::MouseClick(MouseButton button, Error** error) {
 }
 
 void Quick2ViewCmdExecutor::MouseWheel(const int delta, Error **error) {
-    QQuickWindow* view = getView(view_id_, error);
-    if (NULL == view)
-        return;
+//    QQuickWindow* view = getView(view_id_, error);
+//    if (NULL == view)
+//        return;
 
-    QPoint point = ConvertPointToQPoint(session_->get_mouse_position());
-    QPointF scenePoint(point.x(), point.y());
-    QPointF screenPos(view->x() + scenePoint.x(), view->y() + scenePoint.y());
+//    QPoint point = ConvertPointToQPoint(session_->get_mouse_position());
+//    QPointF scenePoint(point.x(), point.y());
+//    QPointF screenPos(view->x() + scenePoint.x(), view->y() + scenePoint.y());
 
-    session_->logger().Log(kFineLogLevel, base::StringPrintf("MouseWheel,  scene: (%4d, %4d)", (int)scenePoint.x(), (int)scenePoint.y()));
-    session_->logger().Log(kFineLogLevel, base::StringPrintf("MouseWheel, screen: (%4d, %4d)", (int)screenPos.x(), (int)screenPos.y()));
+//    session_->logger().Log(kFineLogLevel, base::StringPrintf("MouseWheel,  scene: (%4d, %4d)", (int)scenePoint.x(), (int)scenePoint.y()));
+//    session_->logger().Log(kFineLogLevel, base::StringPrintf("MouseWheel, screen: (%4d, %4d)", (int)screenPos.x(), (int)screenPos.y()));
 
-    // ignore scrolling distance in pixels on screen,
-    QPoint pixelDelta(0, 0);
+//    // ignore scrolling distance in pixels on screen,
+//    QPoint pixelDelta(0, 0);
 
-    QPoint angleDelta(0, delta);
+//    QPoint angleDelta(0, delta);
 
-    QWheelEvent *wheelEvent = new QWheelEvent(scenePoint,
-                                              screenPos,
-                                              pixelDelta,
-                                              angleDelta,
-                                              delta,
-                                              Qt::Vertical,
-                                              Qt::NoButton,
-                                              Qt::NoModifier);
+//    QWheelEvent *wheelEvent = new QWheelEvent(scenePoint,
+//                                              screenPos,
+//                                              pixelDelta,
+//                                              angleDelta,
+//                                              delta,
+//                                              Qt::Vertical,
+//                                              Qt::NoButton,
+//                                              Qt::NoModifier);
 
-    QGuiApplication::postEvent(view, wheelEvent);
+//    QGuiApplication::postEvent(view, wheelEvent);
 }
 
 void Quick2ViewCmdExecutor::MouseMove(const int x_offset, const int y_offset, Error** error) {

@@ -31,7 +31,7 @@
 #include <QtCore/QDebug>
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QDesktopWidget>
+//#include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QInputDialog>
 #include <QtCore/QDateTime>
@@ -121,7 +121,7 @@ void QViewCmdExecutor::Maximize(Error** error) {
         return;
     }
 
-    view->setGeometry(QApplication::desktop()->rect());    
+//    view->setGeometry(QApplication::desktop()->rect());
 }
 
 void QViewCmdExecutor::GetScreenShot(std::string* png, Error** error) {
@@ -368,9 +368,9 @@ void QViewCmdExecutor::GetOrientation(std::string *orientation, Error **error)
 QTouchEvent::TouchPoint QViewCmdExecutor::createTouchPoint(Qt::TouchPointState state, QPointF &point)
 {
     QTouchEvent::TouchPoint touchPoint(1);
-    touchPoint.setPos(point);
-    touchPoint.setState(state);
-    touchPoint.setPressure(1);
+//    touchPoint.setPos(point);
+//    touchPoint.setState(state);
+//    touchPoint.setPressure(1);
     return touchPoint;
 }
 
@@ -393,7 +393,7 @@ QTouchEvent* QViewCmdExecutor::createSimpleTouchEvent(QEvent::Type eventType, Qt
 QTouchEvent* QViewCmdExecutor::createTouchEvent(QEvent::Type eventType, Qt::TouchPointStates touchPointStates, const QList<QTouchEvent::TouchPoint> &touchPoints)
 {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-    QTouchEvent *touchEvent = new QTouchEvent(eventType, &touchDevice, Qt::NoModifier, touchPointStates, touchPoints);
+    QTouchEvent *touchEvent = new QTouchEvent(eventType, &touchDevice, Qt::NoModifier, /*touchPointStates,*/ touchPoints);
     QDateTime current = QDateTime::currentDateTime();
     ulong timestame = current.toMSecsSinceEpoch() & (((qint64)1<<(sizeof(ulong)*8))-1);
     touchEvent->setTimestamp(timestame);
@@ -424,9 +424,9 @@ QTouchEvent* QViewCmdExecutor::create2PointTouchEvent(QEvent::Type eventType, Qt
 QTouchEvent::TouchPoint QViewCmdExecutor::createTouchPointWithId(Qt::TouchPointState state, QPointF &point, int id)
 {
     QTouchEvent::TouchPoint touchPoint(id);
-    touchPoint.setPos(point);
-    touchPoint.setState(state);
-    touchPoint.setPressure(1);
+//    touchPoint.setPos(point);
+//    touchPoint.setState(state);
+//    touchPoint.setPressure(1);
 
     return touchPoint;
 }

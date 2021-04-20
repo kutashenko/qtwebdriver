@@ -25,6 +25,7 @@
 
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtCore/QFileInfo>
+#include <QRegularExpression>
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include "extension_qt/qwindow_view_handle.h"
@@ -77,8 +78,8 @@ bool QQmlViewUtil::isContentTypeSupported(const std::string& mime) {
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 void QQmlViewUtil::removeInternalSuffixes(QString& str) {
-    str.remove(QRegExp(QLatin1String("_QMLTYPE_\\d+")));
-    str.remove(QRegExp(QLatin1String("_QML_\\d+")));
+    str.remove(QRegularExpression(QLatin1String("_QMLTYPE_\\d+")));
+    str.remove(QRegularExpression(QLatin1String("_QML_\\d+")));
     if (str.startsWith(QLatin1String("QQuick"))) str = str.mid(6);
 }
 
@@ -168,8 +169,8 @@ const QUrl QQmlViewUtil::getSource(QQuickWindow* qquickWindow) {
 
 #else
 void QQmlViewUtil::removeInternalSuffixes(QString& str) {
-    str.remove(QRegExp(QLatin1String("_QMLTYPE_\\d+")));
-    str.remove(QRegExp(QLatin1String("_QML_\\d+")));
+    str.remove(QRegularExpression(QLatin1String("_QMLTYPE_\\d+")));
+    str.remove(QRegularExpression(QLatin1String("_QML_\\d+")));
     if (str.startsWith(QLatin1String("QDeclarative"))) str = str.mid(12);
 }
 

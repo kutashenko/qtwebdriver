@@ -27,10 +27,10 @@
 namespace dmg_fp {
 
  char *
-g_fmt(register char *b, double x)
+g_fmt(/*register*/ char *b, double x)
 {
-	register int i, k;
-	register char *s;
+    /*register*/ int i, k;
+    /*register*/ char *s;
 	int decpt, j, sign;
 	char *b0, *s0, *se;
 

@@ -165,187 +165,187 @@ bool QKeyConverter::ConvertKeysToWebKeyEvents(const string16& client_keys,
                                int* modifiers,
                                std::vector<QKeyEvent>* client_key_events,
                                std::string* error_msg) {
-    std::vector<QKeyEvent> key_events;
+//    std::vector<QKeyEvent> key_events;
 
-    string16 keys = client_keys;
-    // Add an implicit NULL character to the end of the input to depress all
-    // modifiers.
-    if (release_modifiers)
-        keys.push_back(kWebDriverNullKey);
+//    string16 keys = client_keys;
+//    // Add an implicit NULL character to the end of the input to depress all
+//    // modifiers.
+//    if (release_modifiers)
+//        keys.push_back(kWebDriverNullKey);
 
-    //static_cast<Qt::KeyboardModifier>(modifiers)
-    Qt::KeyboardModifiers sticky_modifiers(*modifiers);
+//    static_cast<Qt::KeyboardModifier>(modifiers)
+//    Qt::KeyboardModifiers sticky_modifiers(*modifiers);
 
-    for (size_t i = 0, size = keys.size(); i < size; ++i) {
-        char16 key = keys[i];
+//    for (size_t i = 0, size = keys.size(); i < size; ++i) {
+//        char16 key = keys[i];
 
-        if (key == kWebDriverNullKey) {
-            // Release all modifier keys and clear |stick_modifiers|.
-            if (sticky_modifiers & Qt::ShiftModifier)
-                key_events.push_back(
-                    QKeyEvent(QEvent::KeyRelease, Qt::Key_Shift, Qt::NoModifier));
-            if (sticky_modifiers & Qt::ControlModifier)
-                key_events.push_back(
-                    QKeyEvent(QEvent::KeyRelease, Qt::Key_Control, Qt::NoModifier));
-            if (sticky_modifiers & Qt::AltModifier)
-                key_events.push_back(
-                    QKeyEvent(QEvent::KeyRelease, Qt::Key_Alt, Qt::NoModifier));
-            if (sticky_modifiers & Qt::MetaModifier)
-                key_events.push_back(
-                    QKeyEvent(QEvent::KeyRelease, Qt::Key_Meta, Qt::NoModifier));
-            sticky_modifiers = Qt::NoModifier;
-            continue;
-        }
+//        if (key == kWebDriverNullKey) {
+//            // Release all modifier keys and clear |stick_modifiers|.
+//            if (sticky_modifiers & Qt::ShiftModifier)
+//                key_events.push_back(
+//                    QKeyEvent(QEvent::KeyRelease, Qt::Key_Shift, Qt::NoModifier));
+//            if (sticky_modifiers & Qt::ControlModifier)
+//                key_events.push_back(
+//                    QKeyEvent(QEvent::KeyRelease, Qt::Key_Control, Qt::NoModifier));
+//            if (sticky_modifiers & Qt::AltModifier)
+//                key_events.push_back(
+//                    QKeyEvent(QEvent::KeyRelease, Qt::Key_Alt, Qt::NoModifier));
+//            if (sticky_modifiers & Qt::MetaModifier)
+//                key_events.push_back(
+//                    QKeyEvent(QEvent::KeyRelease, Qt::Key_Meta, Qt::NoModifier));
+//            sticky_modifiers = Qt::NoModifier;
+//            continue;
+//        }
 
 
-        if (IsModifierKey(key)) {
-            // Press or release the modifier, and adjust |sticky_modifiers|.
-            bool modifier_down = false;
-            Qt::Key key_code = Qt::Key_unknown;
-            if (key == kWebDriverShiftKey) {
-                sticky_modifiers ^= Qt::ShiftModifier;
-                modifier_down = sticky_modifiers & Qt::ShiftModifier;
-                key_code = Qt::Key_Shift;
-            } else if (key == kWebDriverControlKey) {
-                sticky_modifiers ^= Qt::ControlModifier;
-                modifier_down = sticky_modifiers & Qt::ControlModifier;
-                key_code = Qt::Key_Control;
-            } else if (key == kWebDriverAltKey) {
-                sticky_modifiers ^= Qt::AltModifier;
-                modifier_down = sticky_modifiers & Qt::AltModifier;
-                key_code = Qt::Key_Alt;
-            } else if (key == kWebDriverCommandKey) {
-                sticky_modifiers ^= Qt::MetaModifier;
-                modifier_down = sticky_modifiers & Qt::MetaModifier;
-                key_code = Qt::Key_Meta;
-            } else {
-                NOTREACHED();
-            }
-            if (modifier_down)
-                key_events.push_back(
-                        QKeyEvent(QEvent::KeyPress, key_code, sticky_modifiers));
-            else
-                key_events.push_back(
-                        QKeyEvent(QEvent::KeyRelease, key_code, sticky_modifiers));
-            continue;
-        }
+//        if (IsModifierKey(key)) {
+//            // Press or release the modifier, and adjust |sticky_modifiers|.
+//            bool modifier_down = false;
+//            Qt::Key key_code = Qt::Key_unknown;
+//            if (key == kWebDriverShiftKey) {
+//                sticky_modifiers ^= Qt::ShiftModifier;
+//                modifier_down = sticky_modifiers & Qt::ShiftModifier;
+//                key_code = Qt::Key_Shift;
+//            } else if (key == kWebDriverControlKey) {
+//                sticky_modifiers ^= Qt::ControlModifier;
+//                modifier_down = sticky_modifiers & Qt::ControlModifier;
+//                key_code = Qt::Key_Control;
+//            } else if (key == kWebDriverAltKey) {
+//                sticky_modifiers ^= Qt::AltModifier;
+//                modifier_down = sticky_modifiers & Qt::AltModifier;
+//                key_code = Qt::Key_Alt;
+//            } else if (key == kWebDriverCommandKey) {
+//                sticky_modifiers ^= Qt::MetaModifier;
+//                modifier_down = sticky_modifiers & Qt::MetaModifier;
+//                key_code = Qt::Key_Meta;
+//            } else {
+//                NOTREACHED();
+//            }
+//            if (modifier_down)
+//                key_events.push_back(
+//                        QKeyEvent(QEvent::KeyPress, key_code, sticky_modifiers));
+//            else
+//                key_events.push_back(
+//                        QKeyEvent(QEvent::KeyRelease, key_code, sticky_modifiers));
+//            continue;
+//        }
 
-        Qt::Key key_code = Qt::Key_unknown;
-        std::string unmodified_text, modified_text;
-        Qt::KeyboardModifiers all_modifiers = sticky_modifiers;
+//        Qt::Key key_code = Qt::Key_unknown;
+//        std::string unmodified_text, modified_text;
+//        Qt::KeyboardModifiers all_modifiers = sticky_modifiers;
 
-        // Get the key code, text, and modifiers for the given key.
-        bool should_skip = false;
-        if (KeyCodeFromSpecialWebDriverKey(key, &key_code) ||
-            KeyCodeFromShorthandKey(key, &key_code, &should_skip)) {
+//        // Get the key code, text, and modifiers for the given key.
+//        bool should_skip = false;
+//        if (KeyCodeFromSpecialWebDriverKey(key, &key_code) ||
+//            KeyCodeFromShorthandKey(key, &key_code, &should_skip)) {
 
-            if (should_skip)
-                continue;
-            if (key_code == Qt::Key_unknown) {
-                *error_msg = StringPrintf(
-                    "Unknown WebDriver key(%d) at string index (%" PRIuS ")",
-                    static_cast<int>(key), i);
-                return false;
-            }
+//            if (should_skip)
+//                continue;
+//            if (key_code == Qt::Key_unknown) {
+//                *error_msg = StringPrintf(
+//                    "Unknown WebDriver key(%d) at string index (%" PRIuS ")",
+//                    static_cast<int>(key), i);
+//                return false;
+//            }
 
-            if (key_code == Qt::Key_Return || key_code == Qt::Key_Enter || key_code == Qt::Key_Space ||
-                    key_code == Qt::Key_Asterisk || key_code == Qt::Key_Plus ||
-                    key_code == Qt::Key_Comma || key_code == Qt::Key_Minus ||
-                    key_code == Qt::Key_Period || key_code == Qt::Key_Slash ||
-                    key_code == Qt::Key_Equal || key_code == Qt::Key_Semicolon) {
-                // TODO: check this
-                // For some reason Chrome expects a carriage return for the return key.
-                modified_text = unmodified_text = (char)key_code;
-            } else {
-                // TODO: check this
-                // WebDriver assumes a numpad key should translate to the number,
-                // which requires NumLock to be on with some platforms. This isn't
-                // formally in the spec, but is expected by their tests.
-//                int webdriver_modifiers = 0;
-//                if (key_code >= Qt::Key_0 && key_code <= Qt::Key_9)
-//                    webdriver_modifiers = automation::kNumLockKeyMask;
-//                unmodified_text = ConvertKeyCodeToText(key_code, webdriver_modifiers);
-//                modified_text = ConvertKeyCodeToText(
-//                    key_code,
-//                    all_modifiers | webdriver_modifiers);
-            }
-        } else {
-            Qt::KeyboardModifiers necessary_modifiers(0);
-//            ConvertCharToKeyCode(key, &key_code, &necessary_modifiers);
-            all_modifiers |= necessary_modifiers;
-            if (key_code != Qt::Key_unknown) {
-//              unmodified_text = ConvertKeyCodeToText(key_code, 0);
-//              modified_text = ConvertKeyCodeToText(key_code, all_modifiers);
-            }
+//            if (key_code == Qt::Key_Return || key_code == Qt::Key_Enter || key_code == Qt::Key_Space ||
+//                    key_code == Qt::Key_Asterisk || key_code == Qt::Key_Plus ||
+//                    key_code == Qt::Key_Comma || key_code == Qt::Key_Minus ||
+//                    key_code == Qt::Key_Period || key_code == Qt::Key_Slash ||
+//                    key_code == Qt::Key_Equal || key_code == Qt::Key_Semicolon) {
+//                // TODO: check this
+//                // For some reason Chrome expects a carriage return for the return key.
+//                modified_text = unmodified_text = (char)key_code;
+//            } else {
+//                // TODO: check this
+//                // WebDriver assumes a numpad key should translate to the number,
+//                // which requires NumLock to be on with some platforms. This isn't
+//                // formally in the spec, but is expected by their tests.
+////                int webdriver_modifiers = 0;
+////                if (key_code >= Qt::Key_0 && key_code <= Qt::Key_9)
+////                    webdriver_modifiers = automation::kNumLockKeyMask;
+////                unmodified_text = ConvertKeyCodeToText(key_code, webdriver_modifiers);
+////                modified_text = ConvertKeyCodeToText(
+////                    key_code,
+////                    all_modifiers | webdriver_modifiers);
+//            }
+//        } else {
+//            Qt::KeyboardModifiers necessary_modifiers(0);
+////            ConvertCharToKeyCode(key, &key_code, &necessary_modifiers);
+//            all_modifiers |= necessary_modifiers;
+//            if (key_code != Qt::Key_unknown) {
+////              unmodified_text = ConvertKeyCodeToText(key_code, 0);
+////              modified_text = ConvertKeyCodeToText(key_code, all_modifiers);
+//            }
 
-            if (unmodified_text.empty() || modified_text.empty()) {
-                // Do a best effort and use the raw key we were given.
-                logger.Log(
-                    kWarningLogLevel,
-                    base::StringPrintf("No translation for key code. Code point: %d",
-                        static_cast<int>(key)));
-                if (unmodified_text.empty())
-                    unmodified_text = UTF16ToUTF8(keys.substr(i, 1));
-                if (modified_text.empty())
-                    modified_text = UTF16ToUTF8(keys.substr(i, 1));
-            }
-        }
+//            if (unmodified_text.empty() || modified_text.empty()) {
+//                // Do a best effort and use the raw key we were given.
+//                logger.Log(
+//                    kWarningLogLevel,
+//                    base::StringPrintf("No translation for key code. Code point: %d",
+//                        static_cast<int>(key)));
+//                if (unmodified_text.empty())
+//                    unmodified_text = UTF16ToUTF8(keys.substr(i, 1));
+//                if (modified_text.empty())
+//                    modified_text = UTF16ToUTF8(keys.substr(i, 1));
+//            }
+//        }
 
-	bool autoPress = false, autoRelease = false;
+//	bool autoPress = false, autoRelease = false;
 
-        if (i < size - 1 && key == keys[i + 1]) 
-            autoRelease = true;
+//        if (i < size - 1 && key == keys[i + 1])
+//            autoRelease = true;
 
-        if (i > 0 && key == keys[i - 1]) 
-            autoPress = true;
+//        if (i > 0 && key == keys[i - 1])
+//            autoPress = true;
 
-	bool sendRelease;
-#if WD_ENABLE_ONE_KEYRELEASE 
-        // Send only last key release
-        sendRelease = !autoRelease;
- #else
-        // Send key release in all cases
-        sendRelease = true;
-#endif
-        // Create the key events.
-        bool necessary_modifiers[3];
-        for (int i = 0; i < 3; ++i) {
-            necessary_modifiers[i] =
-                all_modifiers & kModifiers[i].mask &&
-                !(sticky_modifiers & kModifiers[i].mask);
-            if (necessary_modifiers[i]) {
-                key_events.push_back(
-                    QKeyEvent(QEvent::KeyPress, kModifiers[i].key_code, sticky_modifiers, QString::null, autoPress));
-            }
-        }
+//	bool sendRelease;
+//#if WD_ENABLE_ONE_KEYRELEASE
+//        // Send only last key release
+//        sendRelease = !autoRelease;
+// #else
+//        // Send key release in all cases
+//        sendRelease = true;
+//#endif
+//        // Create the key events.
+//        bool necessary_modifiers[3];
+//        for (int i = 0; i < 3; ++i) {
+//            necessary_modifiers[i] =
+//                all_modifiers & kModifiers[i].mask &&
+//                !(sticky_modifiers & kModifiers[i].mask);
+//            if (necessary_modifiers[i]) {
+//                key_events.push_back(
+//                    QKeyEvent(QEvent::KeyPress, kModifiers[i].key_code, sticky_modifiers, QString(), autoPress));
+//            }
+//        }
 
-        if (unmodified_text.length() || modified_text.length()) {
-            key_events.push_back(QKeyEvent(QEvent::KeyPress, key_code, all_modifiers, unmodified_text.c_str(), autoPress));
-            if (sendRelease) {
-                key_events.push_back(QKeyEvent(QEvent::KeyRelease, key_code, all_modifiers, unmodified_text.c_str(), autoRelease));      
-            }
-        }
-        else
-        {
-            key_events.push_back(QKeyEvent(QEvent::KeyPress, key_code, all_modifiers, QString::null, autoPress));
-            if (sendRelease) {
-                key_events.push_back(QKeyEvent(QEvent::KeyRelease, key_code, all_modifiers, QString::null, autoRelease));
-            }
-        }
+//        if (unmodified_text.length() || modified_text.length()) {
+//            key_events.push_back(QKeyEvent(QEvent::KeyPress, key_code, all_modifiers, unmodified_text.c_str(), autoPress));
+//            if (sendRelease) {
+//                key_events.push_back(QKeyEvent(QEvent::KeyRelease, key_code, all_modifiers, unmodified_text.c_str(), autoRelease));
+//            }
+//        }
+//        else
+//        {
+//            key_events.push_back(QKeyEvent(QEvent::KeyPress, key_code, all_modifiers, QString(), autoPress));
+//            if (sendRelease) {
+//                key_events.push_back(QKeyEvent(QEvent::KeyRelease, key_code, all_modifiers, QString(), autoRelease));
+//            }
+//        }
 
         
-        if (sendRelease) {
-            for (int i = 2; i > -1; --i) {
-                if (necessary_modifiers[i]) {
-                    key_events.push_back(
-                        QKeyEvent(QEvent::KeyRelease, kModifiers[i].key_code, sticky_modifiers, QString::null, autoRelease));
-                }
-            }
-        }
-    }
+//        if (sendRelease) {
+//            for (int i = 2; i > -1; --i) {
+//                if (necessary_modifiers[i]) {
+//                    key_events.push_back(
+//                        QKeyEvent(QEvent::KeyRelease, kModifiers[i].key_code, sticky_modifiers, QString(), autoRelease));
+//                }
+//            }
+//        }
+//    }
 
-    client_key_events->swap(key_events);
-    *modifiers = sticky_modifiers;
+//    client_key_events->swap(key_events);
+//    *modifiers = sticky_modifiers;
     return true;
 }
 

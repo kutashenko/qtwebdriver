@@ -22,7 +22,7 @@
 
 #include <QtNetwork/QHostAddress>
 #include <QtCore/QMap>
-#include <QtCore/QRegExp>
+#include <QRegularExpression>
 #include <QtCore/QStringList>
 
 #define MAJOR_INDEX 6
@@ -116,7 +116,7 @@ bool VNCClient::Init(QString remoteHost, quint16 port)
 
     if (!addr.setAddress(remoteHost))
     {
-        remoteHost.replace(QRegExp("http*://"), "");
+        remoteHost.replace(QRegularExpression("http*://"), "");
         addr.setAddress(remoteHost);
     }
 
@@ -141,7 +141,7 @@ bool VNCClient::Init(QString remoteHost, quint16 port, QString* password)
 
     if (!addr.setAddress(remoteHost))
     {
-        remoteHost.replace(QRegExp("http*://"), "");
+        remoteHost.replace(QRegularExpression("http*://"), "");
         addr.setAddress(remoteHost);
     }
 
@@ -584,7 +584,7 @@ void VNCClient::sendMouseEvent(QMouseEvent *mouse)
             case Qt::NoButton: break;
             case Qt::LeftButton: mouseBtn = mouseBtn | 0x01; break;
             case Qt::RightButton: mouseBtn = mouseBtn | 0x04; break;
-            case Qt::MidButton: mouseBtn = mouseBtn | 0x02; break;
+//            case Qt::MidButton: mouseBtn = mouseBtn | 0x02; break;
             default: break;
         }
     }
@@ -595,7 +595,7 @@ void VNCClient::sendMouseEvent(QMouseEvent *mouse)
             case Qt::NoButton: break;
             case Qt::LeftButton: mouseBtn = mouseBtn & 0xfe; break;
             case Qt::RightButton: mouseBtn = mouseBtn & 0xfb; break;
-            case Qt::MidButton: mouseBtn = mouseBtn & 0xfd; break;
+//            case Qt::MidButton: mouseBtn = mouseBtn & 0xfd; break;
             default: break;
         }
     }
@@ -633,7 +633,7 @@ void VNCClient::sendDoubleClick(QMouseEvent *event)
         case Qt::NoButton: break;
         case Qt::LeftButton: mouseBtn = mouseBtn | 0x01; break;
         case Qt::RightButton: mouseBtn = mouseBtn | 0x04; break;
-        case Qt::MidButton: mouseBtn = mouseBtn | 0x02; break;
+//        case Qt::MidButton: mouseBtn = mouseBtn | 0x02; break;
         default: break;
     }
 
@@ -659,7 +659,7 @@ void VNCClient::sendDoubleClick(QMouseEvent *event)
         case Qt::NoButton: break;
         case Qt::LeftButton: mouseBtn = mouseBtn & 0xfe; break;
         case Qt::RightButton: mouseBtn = mouseBtn & 0xfb; break;
-        case Qt::MidButton: mouseBtn = mouseBtn & 0xfd; break;
+//        case Qt::MidButton: mouseBtn = mouseBtn & 0xfd; break;
         default: break;
     }
 
@@ -671,7 +671,7 @@ void VNCClient::sendDoubleClick(QMouseEvent *event)
         case Qt::NoButton: break;
         case Qt::LeftButton: mouseBtn = mouseBtn | 0x01; break;
         case Qt::RightButton: mouseBtn = mouseBtn | 0x04; break;
-        case Qt::MidButton: mouseBtn = mouseBtn | 0x02; break;
+//        case Qt::MidButton: mouseBtn = mouseBtn | 0x02; break;
         default: break;
     }
 
@@ -683,7 +683,7 @@ void VNCClient::sendDoubleClick(QMouseEvent *event)
         case Qt::NoButton: break;
         case Qt::LeftButton: mouseBtn = mouseBtn & 0xfe; break;
         case Qt::RightButton: mouseBtn = mouseBtn & 0xfb; break;
-        case Qt::MidButton: mouseBtn = mouseBtn & 0xfd; break;
+//        case Qt::MidButton: mouseBtn = mouseBtn & 0xfd; break;
         default: break;
     }
 
