@@ -22,7 +22,6 @@ wd.gypi
 /Makefile
 /WebDriver.target.mk
 /WebDriverTest.target.mk
-/src/webdriver/webdriver_version.cc
 /build-*
 .DS_Store
 .python-version
