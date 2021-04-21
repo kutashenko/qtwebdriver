@@ -393,7 +393,11 @@ QTouchEvent* QViewCmdExecutor::createSimpleTouchEvent(QEvent::Type eventType, Qt
 QTouchEvent* QViewCmdExecutor::createTouchEvent(QEvent::Type eventType, Qt::TouchPointStates touchPointStates, const QList<QTouchEvent::TouchPoint> &touchPoints)
 {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-    QTouchEvent *touchEvent = new QTouchEvent(eventType, &touchDevice, Qt::NoModifier, /*touchPointStates,*/ touchPoints);
+    QTouchEvent *touchEvent = new QTouchEvent(eventType, &touchDevice, Qt::NoModifier,
+                                          #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+                                              touchPointStates,
+                                          #endif
+                                              touchPoints);
     QDateTime current = QDateTime::currentDateTime();
     ulong timestame = current.toMSecsSinceEpoch() & (((qint64)1<<(sizeof(ulong)*8))-1);
     touchEvent->setTimestamp(timestame);
